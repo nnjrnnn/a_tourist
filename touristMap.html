@@ -1,0 +1,532 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300&display=swap" rel="stylesheet">
+  <body style = "background-color : #CCFFCC ;">
+<!-- Link library leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+crossorigin="" />
+
+ <!-- W3 CSS template -->
+ <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+ <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+crossorigin="">
+</script>
+
+<style>
+#mapid
+{
+height: 800px;
+}
+body{
+font-family: 'Mitr', sans-serif;
+}
+</style>
+
+ <title>Tourist map</title>
+</head>
+<body>
+  <center><h1><font color="#003300">แผนที่สถานที่ท่องเที่ยว จังหวัดเลยและจังหวัดพิษณุโลก 🚂🚃🚃🚃</font></h1></center>
+  <hr>
+  โดย ณัฐวัฒน์ โอนอ่อน รหัสนิสิต 62103010456
+<!-- แบ่งหน้าจอ -->
+<div class="w3-row">
+<div id="mapid" class="w3-half"></div>
+<div id="content" class="w3-half">
+<table class="w3-table w3-striped">
+  <tr>
+    <th>ชื่อแหล่งท่องเที่ยว</th>
+    <th>ประเภท</th>
+    <th>ระดับ</th>
+  </tr>
+  <tr>
+    <td>น้ำตก A</td>
+    <td>ธรรมชาติ</td>
+    <td>A</td>
+  </tr>
+</table>
+</div>
+</div>
+
+<!-- เรียกแผนที่ขึ้นมาแสดง -->
+<script>
+ var map = L.map("mapid").setView([17.29295893954944, 101.29883518561307],8);
+ var osm = L.tileLayer("https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png").addTo(map);
+ var gsat = L.tileLayer("https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}").addTo(map);
+ var baseMaps ={
+//ชื่อชั้นข้อมูล:ตัวแปร
+GoogleSat:gsat,
+OSM:osm,
+};
+
+//add data
+var tourpoint = {
+type: "FeatureCollection",
+name: "tour_plk",
+crs: {
+type: "name",
+properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" },
+  },
+features: [
+{
+type: "Feature",
+properties: {
+Name: "อุทยานแห่งชาติภูเรือ",
+Type: "อุทยานและวนอุทยาน",
+FID_1: 1358.0,
+CHANGWAT: "เลย",
+PROVINCE_1: "loei",
+REGION: "ภาคตะวันออกเฉียงเหนือ",
+level: "⭐⭐⭐⭐",
+},
+geometry: {
+type: "MultiPoint",
+coordinates: [[101.344667255214, 17.51509655]],
+},
+},
+{
+type: "Feature",
+properties: {
+Name: "น้ำตกหมันแดง",
+Type: "ธรรมชาติ",
+FID_1: 1357.0,
+CHANGWAT: "พิษณุโลก",
+PROVINCE_1: "loei",
+REGION: "ภาคเหนือ",
+level: "⭐⭐⭐⭐",
+},
+geometry: {
+type: "MultiPoint",
+coordinates: [[101.064693387214, 16.9416304952]],
+},
+},
+{
+type: "Feature",
+properties: {
+Name: "เขาโปกโล้น",
+Type: "ธรรมชาติ",
+FID_1: 1362.0,
+CHANGWAT: "พิษณุโลก",
+PROVINCE_1: "Phitsanulok",
+REGION: "ภาคเหนือ",
+level: "⭐⭐⭐⭐⭐",
+},
+geometry: {
+type: "MultiPoint",
+coordinates: [[100.820027987516, 17.3077600964409]],
+},
+},
+{
+type: "Feature",
+properties: {
+Name: "วัดพระศรีรัตนมหาธาตุราชวรมหาวิหาร",
+Type: "วัฒนธรรม",
+FID_1: 1364.0,
+CHANGWAT: "พิษณุโลก",
+PROVINCE_1: "Phitsanulok",
+REGION: "ภาคเหนือ",
+level: "⭐⭐⭐⭐⭐",
+},
+geometry: {
+type: "MultiPoint",
+coordinates: [[100.263709154056, 16.8578849767811]],
+},
+},
+{
+type: "Feature",
+properties: {
+Name: "อุทยานแห่งชาติทุ่งแสลงหลวง",
+Type: "อุทยานและวนอุทยาน",
+FID_1: 1355.0,
+CHANGWAT: "พิษณุโลก",
+PROVINCE_1: "Phitsanulok",
+REGION: "ภาคเหนือ",
+level: "⭐⭐⭐⭐",
+},
+geometry: {
+type: "MultiPoint",
+coordinates: [[100.880643165636, 16.5970954825923]],
+},
+},
+{
+type: "Feature",
+properties: {
+Name: "ล่องแพแก่งไฮ",
+Type: "กิจกรรมพิเศษ",
+FID_1: 1365.0,
+CHANGWAT: "พิษณุโลก",
+PROVINCE_1: "Phitsanulok",
+REGION: "ภาคเหนือ",
+level: "⭐⭐⭐⭐",
+},
+geometry: {
+type: "MultiPoint",
+coordinates: [[100.75101981703, 16.9830213728627]],
+},
+},
+{
+type: "Feature",
+properties: {
+Name: "บ้านมุง",
+Type: "วัฒนธรรม",
+FID_1: 733.0,
+CHANGWAT: "พิษณุโลก",
+PROVINCE_1: "Phitsanulok",
+REGION: "ภาคเหนือ",
+level: "⭐⭐⭐",
+},
+geometry: {
+type: "MultiPoint",
+coordinates: [[100.691232505142, 16.5621574728891]],
+},
+},
+{
+type: "Feature",
+properties: {
+Name: "สกายวอล์ค เชียงคาน",
+Type: "ธรรมชาติ",
+FID_1: 1359.0,
+CHANGWAT: "เลย",
+PROVINCE_1: "loei",
+REGION: "ภาคตะวันออกเฉียงเหนือ",
+level: "⭐⭐⭐⭐",
+},
+geometry: {
+type: "MultiPoint",
+coordinates: [[101.554271609937, 17.8203584612723]],
+},
+},
+{
+type: "Feature",
+properties: {
+Name: "พระธาตุศรีสองรัก",
+Type: "วัฒนธรรม",
+FID_1: 603.0,
+CHANGWAT: "เลย",
+PROVINCE_1: "Loei",
+REGION: "ภาคตะวันออกเฉียงเหนือ",
+level: "⭐⭐⭐⭐",
+},
+geometry: {
+type: "MultiPoint",
+coordinates: [[101.141083978699, 17.2710855056125]],
+},
+},
+{
+type: "Feature",
+properties: {
+Name: "ต้นไม้รูปหัวใจ เนินมะปราง",
+Type: "กิจกรรมพิเศษ",
+FID_1: 611.0,
+CHANGWAT: "เลย",
+PROVINCE_1: "Loei",
+REGION: "ภาคตะวันออกเฉียงเหนือ",
+level: "⭐⭐⭐",
+},
+geometry: { type: "MultiPoint", coordinates: [[100.625796360011, 16.7254509761909]] },
+},
+{
+type: "Feature",
+properties: {
+Name: "อุทยานแห่งชาติภูกระดึง",
+Type: "อุทยานและวนอุทยาน",
+FID_1: 1370.0,
+CHANGWAT: "เลย",
+PROVINCE_1: "loei",
+REGION: "ภาคตะวันออกเฉียงเหนือ",
+level: "⭐⭐⭐⭐",
+},
+geometry: {
+type: "MultiPoint",
+coordinates: [[101.84349257976696, 16.888565514714156]],
+},
+},
+],
+};
+
+//add marker and popup
+var tourLayer = L.geoJSON(tourpoint, {
+pointToLayer: function (feature, latlng) {
+return L.marker(latlng).bindPopup(feature.properties.Name);
+},
+onEachFeature: function (feature, layer) {
+layer.on("mouseover", function () {
+document
+.getElementById(feature.properties.FID_1)
+.classList.add("w3-red");
+});
+
+ layer.on("mouseout", function () {
+document
+.getElementById(feature.properties.FID_1)
+.classList.remove("w3-red");
+});
+},
+}).addTo(map);
+
+var cont = "";
+cont += "<table class='w3-table w3-striped'>";
+cont += "<tr>";
+cont += "<th>ชื่อแหล่งท่องเที่ยว</th>";
+cont += "<th>ประเภท</th>";
+cont += "<th>ระดับ</th>";
+cont += "</tr>";
+for (let i in tourpoint.features) {
+cont += "<tr id=" + tourpoint.features[i].properties.FID_1 + ">";
+cont += "<td>" + tourpoint.features[i].properties.Name + "</td>";
+cont += "<td>" + tourpoint.features[i].properties.Type + "</td>";
+cont += "<td>" + tourpoint.features[i].properties.level + "</td>";
+cont += "</tr>";
+}
+cont += "</table>";
+console.log(cont);
+document.getElementById("content").innerHTML = cont;
+
+var polygonGeoJson = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke": "#ff7300",
+        "stroke-width": 2,
+        "stroke-opacity": 1,
+        "fill": "#fb493c",
+        "fill-opacity": 0.5,
+        "name": "Loei"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.0577392578125,
+              16.96748704407044
+            ],
+            [
+              101.1346435546875,
+              16.99375545289456
+            ],
+            [
+              101.3763427734375,
+              17.167034421464095
+            ],
+            [
+              101.4642333984375,
+              17.030525041643063
+            ],
+            [
+              101.6180419921875,
+              17.030525041643063
+            ],
+            [
+              101.6949462890625,
+              16.77298693096487
+            ],
+            [
+              101.7938232421875,
+              16.76772739719064
+            ],
+            [
+              102.05749511718749,
+              16.904427878255003
+            ],
+            [
+              102.073974609375,
+              17.167034421464095
+            ],
+            [
+              102.00256347656249,
+              17.429269667952468
+            ],
+            [
+              102.1234130859375,
+              17.48691110080686
+            ],
+            [
+              102.0465087890625,
+              17.659725608174586
+            ],
+            [
+              102.0465087890625,
+              17.832374329567518
+            ],
+            [
+              102.117919921875,
+              18.21369821621042
+            ],
+            [
+              102.0684814453125,
+              18.22935133838668
+            ],
+            [
+              101.87072753906249,
+              18.04142122189195
+            ],
+            [
+              101.7718505859375,
+              18.057089766648648
+            ],
+            [
+              101.2774658203125,
+              17.617846352167025
+            ],
+            [
+              101.1676025390625,
+              17.4607127104298
+            ],
+            [
+              100.9478759765625,
+              17.58119402650602
+            ],
+            [
+              100.8599853515625,
+              17.5078670964508
+            ],
+            [
+              101.07421875,
+              17.256236314156425
+            ],
+            [
+              101.0577392578125,
+              16.96748704407044
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke": "#b712f3",
+        "stroke-width": 2,
+        "stroke-opacity": 1,
+        "fill": "#cc96e9",
+        "fill-opacity": 0.5,
+        "name": "Phitsanulok"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              99.854736328125,
+              16.73090658973393
+            ],
+            [
+              99.9261474609375,
+              16.573022719182777
+            ],
+            [
+              100.2227783203125,
+              16.641455036937753
+            ],
+            [
+              100.3216552734375,
+              16.53089842368168
+            ],
+            [
+              100.5743408203125,
+              16.56249250837488
+            ],
+            [
+              100.6512451171875,
+              16.320139453117562
+            ],
+            [
+              100.821533203125,
+              16.50456606887792
+            ],
+            [
+              101.0577392578125,
+              16.98850206537361
+            ],
+            [
+              101.085205078125,
+              17.271973354308802
+            ],
+            [
+              100.8544921875,
+              17.497389400663824
+            ],
+            [
+              100.9808349609375,
+              17.60737501814724
+            ],
+            [
+              100.9918212890625,
+              17.722526217417048
+            ],
+            [
+              100.87646484375,
+              17.71729367227373
+            ],
+            [
+              100.5413818359375,
+              17.429269667952468
+            ],
+            [
+              100.23376464843749,
+              17.34539508915956
+            ],
+            [
+              100.1513671875,
+              17.177530993362268
+            ],
+            [
+              99.95361328125,
+              17.17228278169308
+            ],
+            [
+              100.0909423828125,
+              16.893915964126325
+            ],
+            [
+              99.931640625,
+              16.86237670846054
+            ],
+            [
+              99.854736328125,
+              16.73090658973393
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
+
+var polygonLayer = L.geoJSON(polygonGeoJson, {
+style: function (feature) {
+return { color: feature.properties.fill };
+},
+onEachFeature: function (feature, layer) {
+layer.bindPopup(feature.properties.name);
+
+ layer.on("mouseover", function () {
+layer.openPopup();
+});
+
+ layer.on("mouseout", function () {
+layer.closePopup();
+});
+},
+});
+
+var overlays = {
+  สถานที่ท่องเที่ยว:tourLayer,
+  ขอบเขตอุทยาน:polygonLayer
+};
+
+//Create layer control
+L.control.layers(baseMaps,overlays).addTo(map);
+
+</script>
+
+</body>
+</html>
